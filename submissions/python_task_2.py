@@ -86,7 +86,11 @@ def calculate_toll_rate(df)->pd.DataFrame():
         pandas.DataFrame
     """
     # Wrie your logic here
-
+    df['moto'] = 0.8 * df['distance']
+    df['car'] = 1.2 * df['car']
+    df['rv'] = 1.5 * df['distance']
+    df['bus'] = 2.2 * df['distance']
+    df['truck'] = 3.6 * df['distance']
     return df
 
 
