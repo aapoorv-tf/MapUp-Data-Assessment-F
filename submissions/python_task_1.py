@@ -70,7 +70,7 @@ def filter_routes(df)->list:
     result = sorted(result[result['truck'] > 7]['route'].tolist())
     
     return result
-    return list()
+
 
 
 def multiply_matrix(matrix)->pd.DataFrame:
@@ -84,8 +84,10 @@ def multiply_matrix(matrix)->pd.DataFrame:
         pandas.DataFrame: Modified matrix with values multiplied based on custom conditions.
     """
     # Write your logic here
-
+    matrix[matrix > 20] *= 0.75
+    matrix[matrix <= 20] *= 1.25
     return matrix
+    
 
 
 def time_check(df)->pd.Series:
