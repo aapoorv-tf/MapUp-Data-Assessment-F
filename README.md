@@ -123,7 +123,7 @@ Sample result dataframe:\
 
 ## Question 5: Calculate Time-Based Toll Rates
 
-Create a function named `calculate_time_based_toll_rates` that takes the DataFrame created in Question 3 as input and calculates toll rates for different time intervals within a day. 
+Create a function named `calculate_time_based_toll_rates` that takes the DataFrame created in Question 4 as input and calculates toll rates for different time intervals within a day. 
 
 The resulting DataFrame should have these five columns added to the input: start_day, start_time, end_day, and end_time.
 - `start_day`, `end_day` must be strings with day values (from Monday to Sunday in proper case)
