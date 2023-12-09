@@ -66,7 +66,10 @@ def filter_routes(df)->list:
         list: List of route names with average 'truck' values greater than 7.
     """
     # Write your logic here
-
+    result = df.groupby('route')['truck'].mean().reset_index()
+    result = sorted(result[result['truck'] > 7]['route'].tolist())
+    
+    return result
     return list()
 
 
