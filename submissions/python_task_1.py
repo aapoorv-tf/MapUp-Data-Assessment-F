@@ -31,7 +31,11 @@ def get_type_count(df)->dict:
     """
     # Write your logic here
 
-    return dict()
+    df['car_type'] = pd.cut(df['car'], bins=[0, 15, 25, np.inf], labels=['low', 'medium', 'high'])
+    result = df['car_type'].value_counts().to_dict()
+    result = dict(sorted(result.items()))
+    return result
+    
 
 
 def get_bus_indexes(df)->list:
@@ -45,8 +49,10 @@ def get_bus_indexes(df)->list:
         list: List of indexes where 'bus' values exceed twice the mean.
     """
     # Write your logic here
-
-    return list()
+    mean = df['bus'].mean()
+    result = df[df['bus'] > 2 * mean].index.tolist()
+    return result
+    
 
 
 def filter_routes(df)->list:
