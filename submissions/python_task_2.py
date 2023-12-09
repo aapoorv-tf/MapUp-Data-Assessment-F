@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 def calculate_distance_matrix(df)->pd.DataFrame():
     """
@@ -12,8 +12,25 @@ def calculate_distance_matrix(df)->pd.DataFrame():
         pandas.DataFrame: Distance matrix
     """
     # Write your logic here
+    ids = pd.concat([df['id_start'], df['id_end']]).unique()
+    result = pd.DataFrame(index=ids, columns=ids)
 
-    return df
+    for _, row in df.iterrows():
+        result.at[row['id_start'], row['id_end']] = row['distance']
+        result.at[row['id_end'], row['id_start']] = row['distance']
+    
+    for i in ids:
+        for j in ids:
+            if pd.isna(result.at[i, j]):
+                for k in ids:
+                    if not pd.isna(result.at[i, k]) and not pd.isna(result.at[k, j]):
+                        result.at[i, j] = result.at[i, k] + result.at[k, j]
+                        result.at[j, i] = result.at[i, j]
+                        
+    np.fill_diagonal(result.values, 0)
+
+    return result
+    
 
 
 def unroll_distance_matrix(df)->pd.DataFrame():

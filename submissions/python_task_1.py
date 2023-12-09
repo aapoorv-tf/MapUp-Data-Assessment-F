@@ -101,5 +101,12 @@ def time_check(df)->pd.Series:
         pd.Series: return a boolean series
     """
     # Write your logic here
+    df['start'] = pd.to_datetime(df['startDay'] + ' ' + df['startTime']) #throws error, outofbounds for pd.to_datetime
+    df['end'] = pd.to_datetime(df['endDay'] + ' ' + df['endTime'])
 
-    return pd.Series()
+    df['duration'] = df['end'] - df['start']
+    grouped = df.groupby(['id', 'id_2'])
+
+    result = grouped.apply(lambda x: (x['duration'].min() <= pd.Timedelta(days=6, hours=23, minutes=59, seconds=59)) & (x['duration'].max() >= pd.Timedelta(days=7)))
+    result.index.names = ['id', 'id_2']
+    return result
